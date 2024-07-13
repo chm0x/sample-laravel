@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{ $title ?? 'App de Notas' }}</title>
+    <title>@yield('title', 'App with Laravel 10')</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -32,18 +32,18 @@
         </header>
 
         <main class="content">
-            {{ $slot }}
+            @yield('content')
         </main>
 
         <footer class="foot">
             <div class="ad">
                 <p>
                     Esta aplicación es desarrollada en el curso
-                    <a href="#">Primeros pasos con Laravel 10</a>.
+                    <a href="https://styde.net/laravel-6">Primeros pasos con Laravel 6</a>.
                 </p>
             </div>
             <div class="license">
-                <p>© {{ $currentYear }} Derechos Reservados</p>
+                <p>© 2019 Derechos Reservados - Styde Limited</p>
             </div>
         </footer>
     </div>
