@@ -1,13 +1,5 @@
-@extends('layouts.app')
-<!-- OLD: -->
-<!-- @@include('layouts.header') -->
-
-<!-- Es casi lo mismo -->
-<!-- @@section('title') Mis Notas @@endsection -->
- @section('title', 'Mis Notas')
-
-
-@section('content')
+<x-layout>
+    <x-slot name="title">Listado de Notas</x-slot>
     <div class="cards">
         <!-- PHP PURO -->
         <!-- foreach($notes as $note): -->
@@ -21,15 +13,13 @@
                     <!-- <h4><?php // htmlentities($note) ?> </h4> -->
 
                     {{ rand(1,1000) }}
-
-
                     <p>
                         {{ $note }}
                     </p>
                 </div>
 
                 <footer class="card-footer">
-                    <a class="action-link action-edit">
+                    <a href="{{ route('notes.edit', ['id' => $loop->iteration]) }}" class="action-link action-edit">
                         <i class="icon icon-pen"></i>
                     </a>
                     <a class="action-link action-delete">
@@ -57,5 +47,4 @@
             
         </div>
     </div>    
-@endsection
-<!-- @@include('layouts.footer') -->
+</x-layout>

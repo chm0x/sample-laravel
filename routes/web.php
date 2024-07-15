@@ -17,7 +17,7 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
-Route::get('/notas', function() {
+Route::get('/notes', function() {
 
     $notes = [
         'Primera Nota',
@@ -28,20 +28,24 @@ Route::get('/notas', function() {
     ];
 
     return view('notes.index')->with('notes', $notes );
-});
+})->name('notes.index');
 
 
-Route::get('/notas/crear', function(){
+// Crear NOtas
+Route::get('/notes/create', function(){
     return view('notes.create');
-});
+})->name('notes.create');
 
-Route::get('/notas/{id}', function($id) {
+
+// Ver el Detaller de la Nota con el ID
+Route::get('/notes/detail/{id}', function($id) {
     return 'Detalle de la nota: '.$id;
-});
+})->name('notes.detail');
 
-Route::get('/notas/{id}/editar', function($id){
+// Editar la Nota con el ID
+Route::get('/notas/edit/{id}', function($id){
     return 'Editar la Nota: ' . $id;
-});
+})->name('notes.edit');
 
 
 

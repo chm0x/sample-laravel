@@ -1,6 +1,6 @@
-@extends('layouts.app')
-
-@section('content')
+<x-layout>
+    <x-slot:title>Crear Nota</x-slot>
+    <!-- <x-slot name="title">Crear Nota</x-slot> -->
     <div class="cards">
         <div class="card card-center">
             <div class="card-body">
@@ -18,4 +18,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-layout>
