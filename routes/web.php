@@ -2,8 +2,11 @@
 
 use App\Models\Note;
 use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 // Does not need the DB.
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +31,7 @@ Route::get('/notes', function() {
     // CON ORM
     // $notes = Note::all();
     $notes = Note::query()
-             ->orderBy('id')
+             ->orderBy('id', 'desc')
              ->get();
 
     
@@ -36,10 +39,49 @@ Route::get('/notes', function() {
 })->name('notes.index');
 
 
-// Crear NOtas
+// CREAR NOTAS
 Route::get('/notes/create', function(){
     return view('notes.create');
 })->name('notes.create');
+
+Route::post('/notes', function(Request $request){
+
+    // Hay maneras para guardar a la DB
+
+    // PRIMERA
+    // Note::create(Request::all());
+
+    // SEGUNDA
+    // Note::create([
+    //     'title' => Request::input('title'),
+    //     'content' => Request::input('content'),
+    //     // OPcional:
+    //     // 'user_id' => auth()->id(),
+    // ]);
+
+    // TERCERA
+    // Note::create(Request::all() + ['user_id' => auth()->id() ]);
+
+    // CON EL Illuminate\Http\Request
+    Note::create([
+        'title' => $request->input('title'),
+        'content' => $request->input('content')
+    ]);
+
+    // return Request::all();
+    // return "Procesando la creacion de la nota.";
+
+    // Maneras de Redireccionar 
+    // 1
+    // return redirect()->route('notes.index');
+
+    // 2
+    // return Redirect::route('notes.index');
+
+    // Y este es retornar a la misma pagina de la creacion de notas.
+
+    return back();
+})->name('notes.store');
 
 
 // Ver el Detaller de la Nota con el ID
@@ -49,6 +91,7 @@ Route::get('/notes/detail/{id}', function($id) {
     return 'Detalle de la nota: '.$note->title;
 
 })->name('notes.detail');
+
 
 // Editar la Nota con el ID
 Route::get('/notas/edit/{id}', function($id){
