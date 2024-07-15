@@ -12,10 +12,11 @@ class Note extends Model
     protected $fillable = ['title', 'content'];
 
 
-    public function editUrl(){
+    // Ya no es necesario poner. POrque ya pusimos en el Componente "NoteCard"
+    // public function editUrl(){
 
-        return route('notes.edit', [ 'id' => $this->id ]);
-    }
+    //     return route('notes.edit', [ 'id' => $this->id ]);
+    // }
 
     // public function create(){
 
