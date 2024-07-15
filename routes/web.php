@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Redirect;
 // Does not need the DB.
 use Illuminate\Support\Facades\DB;
 
+// Para validar
+use Illuminate\Validation\Rule;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +65,13 @@ Route::post('/notes', function(Request $request){
     // TERCERA
     // Note::create(Request::all() + ['user_id' => auth()->id() ]);
 
+
+    // VALIDACIONES 
+    $request->validate([
+        // 'title' => 'required|min:5|unique:notes,title',
+        'title' => ['required', 'min:5', Rule::unique('notes', 'title') ],
+        'content' => 'required',
+    ]);
     // CON EL Illuminate\Http\Request
     Note::create([
         'title' => $request->input('title'),
