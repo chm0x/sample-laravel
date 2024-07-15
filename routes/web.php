@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Note;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
+// Does not need the DB.
+// use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,14 @@ Route::get('/home', function () {
 
 Route::get('/notes', function() {
 
-    $notes = DB::table('notes')->get();
+    // SIN ORM
+    // $notes = DB::table('notes')->get();
+
+    // CON ORM
+    // $notes = Note::all();
+    $notes = Note::query()
+             ->orderBy('id')
+             ->get();
 
     
     return view('notes.index')->with('notes', $notes );
@@ -38,18 +47,24 @@ Route::get('/notes/detail/{id}', function($id) {
     $note = DB::table('notes')->find($id);
 
     return 'Detalle de la nota: '.$note->title;
-    
+
 })->name('notes.detail');
 
 // Editar la Nota con el ID
 Route::get('/notas/edit/{id}', function($id){
-    $note = DB::table('notes')->find($id);
+
+    // SIN ORM
+    // $note = DB::table('notes')->find($id);
+    
+    // Con ORM
+    $note = Note::findOrFail($id);
+    // $note = Note::find($id);
 
     // dd($note); 
 
     // var_dump($note); die();
 
-    abort_if($note === null, 404);
+    // abort_if($note === null, 404);
 
     return 'Editar la Nota: ' . $note->title;
 })->name('notes.edit');
