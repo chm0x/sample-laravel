@@ -8,18 +8,21 @@
         @forelse($notes as $note)
             <div class="card card-small">
                 <div class="card-body">
-                    <h4>{{ $note }}</h4>
+                    <h4>{{ $note->title }}</h4>
                     <!-- Eso es para PHP puro y seguridad -->
                     <!-- <h4><?php // htmlentities($note) ?> </h4> -->
 
                     {{ rand(1,1000) }}
                     <p>
-                        {{ $note }}
+                        {{ $note->content }}
                     </p>
                 </div>
 
                 <footer class="card-footer">
-                    <a href="{{ route('notes.edit', ['id' => $loop->iteration]) }}" class="action-link action-edit">
+                    <a href="{{ $note->editUrl() }}" class="action-link action-edit">
+                    
+                    <!-- NO LO BORRES EL DE ABAJO -->
+                    <!-- <a href="{{ route('notes.edit', ['id' => $note->id ]) }}" class="action-link action-edit"> -->
                         <i class="icon icon-pen"></i>
                     </a>
                     <a class="action-link action-delete">

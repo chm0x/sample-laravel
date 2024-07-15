@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +20,9 @@ Route::get('/home', function () {
 
 Route::get('/notes', function() {
 
-    $notes = [
-        'Primera Nota',
-        'Segunda Nota',
-        'Tercera Nota',
-        'Cuarta Nota3',
-        '<script>alert("Codigo Malicioso")</script>'
-    ];
+    $notes = DB::table('notes')->get();
 
+    
     return view('notes.index')->with('notes', $notes );
 })->name('notes.index');
 
@@ -39,12 +35,23 @@ Route::get('/notes/create', function(){
 
 // Ver el Detaller de la Nota con el ID
 Route::get('/notes/detail/{id}', function($id) {
-    return 'Detalle de la nota: '.$id;
+    $note = DB::table('notes')->find($id);
+
+    return 'Detalle de la nota: '.$note->title;
+    
 })->name('notes.detail');
 
 // Editar la Nota con el ID
 Route::get('/notas/edit/{id}', function($id){
-    return 'Editar la Nota: ' . $id;
+    $note = DB::table('notes')->find($id);
+
+    // dd($note); 
+
+    // var_dump($note); die();
+
+    abort_if($note === null, 404);
+
+    return 'Editar la Nota: ' . $note->title;
 })->name('notes.edit');
 
 
