@@ -47,6 +47,8 @@
             </div>
         </footer>
     </div>
+
+    {{ $javascript ?? '' }}
 </body>
 
 </html>
