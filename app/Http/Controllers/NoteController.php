@@ -63,6 +63,31 @@ class NoteController extends Controller
     public function edit($id){
         $note = Note::findOrFail($id);
 
-        return 'Editar nota: '. $note->title;
+        return view('notes.edit', ['note' => $note]);
+    }
+
+    public function update(Request $request, $id){
+        $note = Note::findOrFail($id);
+
+        $request->validate([
+            'title' => ['required', 'min:5', Rule::unique('notes')->ignore($id)],
+            'content' => 'required',
+        ]);
+
+        $note->update([
+            'title' => $request->input('title'),
+            'content' => $request->input('content')
+        ]);
+
+        return to_route('notes.index');
+    }
+
+    public function destroy($id){
+
+        $note = Note::findOrFail($id);
+
+        $note->delete();
+
+        return to_route('notes.index');
     }
 }

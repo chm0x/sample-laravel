@@ -16,6 +16,15 @@
                     <p>
                         {{ $note->content }}
                     </p>
+                    <form method="POST" action="{{ route('notes.destroy', ['id'=>$note->id]) }}">
+                        @csrf
+                        @method('DELETE')
+                        
+                        <!-- <input type="hidden" name="_method" value="DELETE" /> -->
+                        <button>
+                            Eliminar
+                        </button>
+                    </form>
                 </div>
 
                 <footer class="card-footer">
@@ -25,6 +34,7 @@
                     <!-- <a href="{{ route('notes.edit', ['id' => $note->id ]) }}" class="action-link action-edit"> -->
                         <i class="icon icon-pen"></i>
                     </a>
+                    
                     <a class="action-link action-delete">
                         <i class="icon icon-trash"></i>
                     </a>

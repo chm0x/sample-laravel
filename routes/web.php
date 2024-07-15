@@ -43,3 +43,9 @@ Route::get('/notes/detail/{id}', [NoteController::class, 'show'])->name('notes.d
 
 // Editar la Nota con el ID
 Route::get('/notes/edit/{id}', [NoteController::class,'edit'])->name('notes.edit');
+
+// Actualizar la nota
+Route::put('/notes/detail/{id}', [NoteController::class,'update'])->name('notes.update');
+
+// Eliminar una nota
+Route::delete('/notes/{id}', [NoteController::class, 'destroy'])->name('notes.destroy');
