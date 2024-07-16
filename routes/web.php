@@ -49,3 +49,8 @@ Route::put('/notes/detail/{id}', [NoteController::class,'update'])->name('notes.
 
 // Eliminar una nota
 Route::delete('/notes/{id}', [NoteController::class, 'destroy'])->name('notes.destroy');
+
+// PRUEBAS
+Route::get('/pruebas', function(){
+    
+});
