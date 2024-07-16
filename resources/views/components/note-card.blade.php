@@ -8,7 +8,10 @@
 
             {{ rand(1,1000) }}
             <p>
-                {{ $note->content }}
+                @{{ $note->content }}
+
+                <!-- @{{ $renderedContent }} -->
+                 {{ $renderContent }}
             </p>
             <form method="POST" action="{{ route('notes.destroy', ['id'=>$note->id]) }}">
                 @csrf
